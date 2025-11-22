@@ -39,7 +39,7 @@ class Brewery:
         self.street=brewery["street"]
     def __str__(self):
         #return f"Id: {self.id}, Nazwa: {self.name}, Typ: {self.brewery_type}"
-        return str([w for w in self.__dict__.values()])
+        return str([w for w in self.__dict__.items()])
 
 res = requests.get(url)
 breweries = res.json()
@@ -49,8 +49,8 @@ i=0
 #for i in range(20):
 #return [n**3 for n in tmp]
 
-for b in breweries:
+for b in breweries[:20]:
     bw.append(Brewery(brewery=b))
     print(str(i) + " - " + str(bw[i]))
     i = i + 1
-    if i > 10: break
+    #if i > 10: break
