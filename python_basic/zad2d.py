@@ -1,7 +1,8 @@
 def codruga(liczby):
     j=0
     for i in range(10):
-        j=j+1
+        #j=j+1
+        i+=1
         if j % 2 == 0:
             print(i)
 
