@@ -1,7 +1,8 @@
 import requests
-from cupshelpers.debug import nonfatalException
+import argparse
 
-url = 'https://api.openbrewerydb.org/v1/breweries' #'https://api.openbrewerydb.org/breweries'
+url = 'https://api.openbrewerydb.org/v1/breweries?'
+noBreweries = 20
 
 class Brewery:
     id: str
@@ -20,6 +21,7 @@ class Brewery:
     website_url:str
     state:str
     street:str
+
     def __init__(self, brewery):
         self.id=brewery["id"]
         self.name=brewery["name"]
@@ -37,20 +39,33 @@ class Brewery:
         self.website_url=brewery["website_url"]
         self.state=brewery["state"]
         self.street=brewery["street"]
+
     def __str__(self):
-        #return f"Id: {self.id}, Nazwa: {self.name}, Typ: {self.brewery_type}"
-        return str([w for w in self.__dict__.items()])
+        res = ""
+        for p, w in self.__dict__.items():
+            res = res + f"{p} = {w}\n"
+        return res
 
-res = requests.get(url)
-breweries = res.json()
-bw = []
-i=0
+def main():
+    parser=argparse.ArgumentParser(description="Skrypt pobierający dane o browarach w wybranym mieście")
+    parser.add_argument("-city", help="masto w którym funkcjonuje browar")
+    args = parser.parse_args()
 
-#for i in range(20):
-#return [n**3 for n in tmp]
+    if args.city:
+        res = requests.get(url + 'by_city=' + args.city)
+    else:
+        res = requests.get(url + 'per_page=' + str(noBreweries))
 
-for b in breweries[:20]:
-    bw.append(Brewery(brewery=b))
-    print(str(i) + " - " + str(bw[i]))
-    i = i + 1
-    #if i > 10: break
+    breweries = res.json()
+    bw = []
+    i = 0
+
+    for b in breweries[:noBreweries]:
+        bw.append(Brewery(brewery=b))
+        # print(bw[i],["name"])
+        # print(f"{chr(27)}[4m {i + 1} - {bw[i],["name"]} {chr(27)}[0m \n" + str(bw[i]))
+        print(f"{chr(27)}[4m {i + 1} - {str(b["name"])} {chr(27)}[0m \n" + str(bw[i]))
+        i = i + 1
+
+if __name__ == "__main__":
+    main()
