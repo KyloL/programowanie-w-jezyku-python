@@ -1,7 +1,10 @@
 import requests
 import argparse
 
-url = 'https://api.openbrewerydb.org/v1/breweries?'
+from httplib2.auth import params
+from typing_extensions import ParamSpec
+
+url = 'https://api.openbrewerydb.org/v1/breweries'
 noBreweries = 20
 
 class Brewery:
@@ -50,12 +53,14 @@ def main():
     parser=argparse.ArgumentParser(description="Skrypt pobierający dane o browarach w wybranym mieście")
     parser.add_argument("-city", help="masto w którym funkcjonuje browar")
     args = parser.parse_args()
+    params = {}
 
     if args.city:
-        res = requests.get(url + 'by_city=' + args.city)
+        params['by_city'] = args.city
     else:
-        res = requests.get(url + 'per_page=' + str(noBreweries))
+        params['per_page'] = str(noBreweries)
 
+    res = requests.get(url, params)
     breweries = res.json()
     bw = []
     i = 0
