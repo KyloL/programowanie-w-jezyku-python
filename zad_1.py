@@ -1,6 +1,7 @@
-def hello (name: str, sname: str) -> str:
+def hello(name: str, sname: str) -> str:
     return 'Cześć ' + name + " " + sname + '!'
 
-helloname = hello ('Kylo', 'Lisak')
+
+helloname = hello('Kylo', 'Lisak')
 
 print(helloname)

@@ -1,9 +1,10 @@
 def iven(liczba) -> bool:
     return (liczba % 2) == 0
 
-l=input("Podaj liczbę: ")
 
-if not iven(int(l)):
-    print(str(l) + ' jest liczbą nieparzystą')
+L = input("Podaj liczbę: ")
+
+if not iven(int(L)):
+    print(str(L) + ' jest liczbą nieparzystą')
 else:
-    print(str(l) + ' jest liczbą parzystą')
+    print(str(L) + ' jest liczbą parzystą')
