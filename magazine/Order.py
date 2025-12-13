@@ -1,5 +1,6 @@
 import magazine.Utils as Utils
-import  magazine.Product as Product
+import magazine.Product as Product
+
 
 class Order:
     employee: Utils.Employee
