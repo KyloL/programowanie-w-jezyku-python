@@ -1,18 +1,21 @@
 import ast
+from os import name
 from unittest import case
 
 
 class UnitTests:
     def is_palindrome(s: str) -> bool:
-        return s == s[::-1]
+        return s.lower().replace(' ', '') == s[::-1].lower().replace(' ', '')
 
-    def fibonacci(n: int) -> int:
-        if n == 0:
+    def fibonacci(self, n: int) -> int:
+        if n < 0:
+            raise ValueError("n < 0")
+        elif n == 0:
             return 0
         elif n == 1:
             return 1
         else:
-            return fibonacci(n - 1) + fibonacci(n - 2)
+            return self.fibonacci(self, n - 1) + self.fibonacci(self, n - 2)
 
     def count_volwels(text: str) -> int:
         sam = "aeiouyąęó"
@@ -21,7 +24,7 @@ class UnitTests:
     def calculate_discount(price: float, discount: float) -> float:
         if (discount < 0) or (discount > 1):
             raise ValueError("discount must be between 0 and 1")
-        return price * discount
+        return price - (price * discount)
 
     def flatten_list(self, nested_list: list) -> list:
         res = []
@@ -40,8 +43,10 @@ class UnitTests:
             return False
         if n == 2:
             return True
-        if n % 2 == 0:
-            return False
+        for i in range(2, n):
+            if n % i == 0:
+                return False
+        return True
 
     def getInput(self):
         self.print_help()
@@ -50,7 +55,7 @@ class UnitTests:
             case "1":
                 print(self.is_palindrome(input("Podaj palindrome: ")))
             case "2":
-                print(self.fibonacci(input("Podaj n: ")))
+                print(self.fibonacci(self, input("Podaj n: ")))
             case "3":
                 print(self.count_volwels(input("Podaj ciąg znaków: ")))
             case "4":
