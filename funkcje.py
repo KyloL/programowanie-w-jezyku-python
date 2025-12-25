@@ -1,5 +1,7 @@
 import ast
-from os import name
+import re
+
+from typing import Any
 from unittest import case
 
 
@@ -35,8 +37,15 @@ class UnitTests:
                 res.append(x)
         return res
 
-    def word_frequencies(text: str) -> dict:
-        return 1
+    def word_frequencies(tekst: str) -> dict:
+        words: dict[Any, Any] = dict()
+        # re.sub(r'[^a-zA-Z0-9\s]', '', tekst.lower()).split()
+        for word in re.sub(r'[^a-zA-Z0-9\s]', '', tekst.lower()).split():
+            if word not in words:
+                words[word] = 1
+            else:
+                words[word] += 1
+        return words
 
     def is_prime(n: int) -> bool:
         if n < 2:
@@ -49,13 +58,13 @@ class UnitTests:
         return True
 
     def getInput(self):
-        self.print_help()
+        self.print_help(self)
         f = input("Podaj numer funkcji: ")
         match f:
             case "1":
                 print(self.is_palindrome(input("Podaj palindrome: ")))
             case "2":
-                print(self.fibonacci(self, input("Podaj n: ")))
+                print(self.fibonacci(self, int(input("Podaj n: "))))
             case "3":
                 print(self.count_volwels(input("Podaj ciąg znaków: ")))
             case "4":
@@ -67,11 +76,11 @@ class UnitTests:
             case "6":
                 print(self.word_frequencies(input("Podaj ciąg do analizy: ")))
             case "7":
-                print(self.is_prime(input("Podaj liczbe do przetestowania: ")))
+                print(self.is_prime(int(input("Podaj liczbe do przetestowania: "))))
             case _:
-                self.print_help()
+                self.print_help(self)
 
-    def print_help():
+    def print_help(self):
         print("Wybierz funkcję:")
         print("  1, is_palindrome()")
         print("  2, fibonacci()")

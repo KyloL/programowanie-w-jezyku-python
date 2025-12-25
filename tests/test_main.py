@@ -65,8 +65,8 @@ def test_word_frequencies(f):
     assert f.word_frequencies('Hello, hello!') == {"hello": 2}
     assert f.word_frequencies('') == {}
     assert f.word_frequencies('Python Python python') == {"python": 3}
-    assert f.word_frequencies('Ala ma kota, a kot ma Ale.') == {"Ala": 1, "ma": 2, "kota": 1, "a": 1, "kot": 1,
-                                                                "Ale": 1}
+    assert f.word_frequencies('Ala ma kota, a kot ma Ale.') == {"ala": 1, "ma": 2, "kota": 1, "a": 1, "kot": 1,
+                                                                "ale": 1}
 
 
 def test_is_prime(f):
