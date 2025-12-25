@@ -2,7 +2,6 @@ import ast
 import re
 
 from typing import Any
-from unittest import case
 
 
 class UnitTests:
@@ -10,8 +9,6 @@ class UnitTests:
         return s.lower().replace(' ', '') == s[::-1].lower().replace(' ', '')
 
     def fibonacci(self, n: int) -> int:
-        res = [0] * (n + 1)
-        res[1] = 1
         if n < 0:
             raise ValueError("n < 0")
         elif n == 0:
@@ -19,6 +16,8 @@ class UnitTests:
         elif n == 1:
             return 1
         else:
+            res = [0] * (n + 1)
+            res[1] = 1
             for i in range(2, n + 1):
                 res[i] = res[i - 1] + res[i - 2]
             return res[n]
